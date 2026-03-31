@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Manage Camping Packages</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>🏕️ Camping Adventures - Admin</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Manage Camping Packages</h1>
+            <button onclick="showAddPackageForm()" class="btn btn-success">+ Add New Package</button>
+        </div>
+
+        <!-- Add/Edit Package Form Modal -->
+        <div id="packageModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">Add New Package</h2>
+                <form id="packageForm" onsubmit="savePackage(event)">
+                    <input type="hidden" id="packageId">
+                    <div class="form-group">
+                        <label>Package Name:</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea id="description" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Price ($):</label>
+                        <input type="number" id="price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (days):</label>
+                        <input type="number" id="duration" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Location:</label>
+                        <input type="text" id="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Latitude:</label>
+                        <input type="number" id="latitude" step="any" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Longitude:</label>
+                        <input type="number" id="longitude" step="any" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Available Dates (comma separated):</label>
+                        <input type="text" id="availableDates" placeholder="2024-01-15, 2024-02-20">
+                    </div>
+                    <div class="form-group">
+                        <label>Images:</label>
+                        <input type="file" id="images" multiple accept="image/*">
+                        <div id="imagePreview"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Package</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Packages Table -->
+        <div class="packages-table-container">
+            <table class="packages-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="packagesTableBody">
+                    <!-- Packages will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/packages.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPackagesTable();
+        });
+    </script>
+</body>
+</html>
